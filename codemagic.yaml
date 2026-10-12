@@ -1,0 +1,21 @@
+workflows:
+  android-debug:
+    name: SecurityLab Debug
+    max_build_duration: 30
+    instance_type: mac_mini_m2
+    environment:
+      java: 17
+    scripts:
+      - name: Generate Gradle wrapper
+        script: gradle wrapper --gradle-version 8.7
+      - name: Build debug APK
+        script: ./gradlew assembleDebug --no-daemon
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+    publishing:
+      email:
+        recipients:
+          - arslanhod@gmail.com
+        notify:
+          success: true
+          failure: true
